@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Wash Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .selected {
+            background-color: #63b3ed !important;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <!-- Vehicle type selection -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center mr-4">1/5
+                </div>
+                <h2 class="text-xl font-semibold">Vehicle type</h2>
+            </div>
+            <p class="mb-4">Select vehicle type below.</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+                <div class="border rounded-lg p-4 text-center hover:bg-blue-100 cursor-pointer" onclick="selectVehicle(this)">
+                    <i class="fas fa-car text-3xl mb-2"></i>
+                    <p>Regular Size Car</p>
+                </div>
+                <div class="border rounded-lg p-4 text-center hover:bg-blue-100 cursor-pointer" onclick="selectVehicle(this)">
+                    <i class="fas fa-car-side text-3xl mb-2"></i>
+                    <p>Medium Size Car</p>
+                </div>
+                <div class="border rounded-lg p-4 text-center hover:bg-blue-100 cursor-pointer" onclick="selectVehicle(this)">
+                    <i class="fas fa-truck-pickup text-3xl mb-2"></i>
+                    <p>Compact SUV</p>
+                </div>
+                <div class="border rounded-lg p-4 text-center hover:bg-blue-100 cursor-pointer" onclick="selectVehicle(this)">
+                    <i class="fas fa-shuttle-van text-3xl mb-2"></i>
+                    <p>Minivan</p>
+                </div>
+                <div class="border rounded-lg p-4 text-center hover:bg-blue-100 cursor-pointer" onclick="selectVehicle(this)">
+                    <i class="fas fa-truck text-3xl mb-2"></i>
+                    <p>Pickup Truck</p>
+                </div>
+                <div class="border rounded-lg p-4 text-center hover:bg-blue-100 cursor-pointer" onclick="selectVehicle(this)">
+                    <i class="fas fa-truck-moving text-3xl mb-2"></i>
+                    <p>Cargo Truck</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wash packages -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center mr-4">2/5
+                </div>
+                <h2 class="text-xl font-semibold">Wash packages</h2>
+            </div>
+            <p class="mb-4">Which wash is best for your vehicle?</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="border rounded-lg p-4 text-center hover:bg-blue-100 cursor-pointer" onclick="selectPackage(this)">
+                    <h3 class="text-xl font-semibold mb-2">Basic Hand Wash</h3>
+                    <p class="text-2xl font-bold text-blue-500 mb-2">$15<sup>95</sup></p>
+                    <p class="mb-2">25min</p>
+                    <ul class="text-left mb-4">
+                        <li>Exterior Hand Wash</li>
+                        <li>Towel Hand Dry</li>
+                        <li>Wheel Shine</li>
+                    </ul>
+                    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Book Now</button>
+                </div>
+                <div class="border rounded-lg p-4 text-center hover:bg-blue-100 cursor-pointer" onclick="selectPackage(this)">
+                    <h3 class="text-xl font-semibold mb-2">Deluxe Wash</h3>
+                    <p class="text-2xl font-bold text-blue-500 mb-2">$27<sup>95</sup></p>
+                    <p class="mb-2">45min</p>
+                    <ul class="text-left mb-4">
+                        <li>Exterior Hand Wash</li>
+                        <li>Towel Hand Dry</li>
+                        <li>Wheel Shine</li>
+                        <li>Tire Dressing</li>
+                        <li>Windows In & Out</li>
+                        <li>Sealer Hand Wax</li>
+                    </ul>
+                    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Book Now</button>
+                </div>
+                <div class="border rounded-lg p-4 text-center hover:bg-blue-100 cursor-pointer" onclick="selectPackage(this)">
+                    <h3 class="text-xl font-semibold mb-2">Ultimate Shine</h3>
+                    <p class="text-2xl font-bold text-blue-500 mb-2">$40<sup>45</sup></p>
+                    <p class="mb-2">60min</p>
+                    <ul class="text-left mb-4">
+                        <li>Exterior Hand Wash</li>
+                        <li>Towel Hand Dry</li>
+                        <li>Wheel Shine</li>
+                        <li>Tire Dressing</li>
+                        <li>Windows In & Out</li>
+                        <li>Interior Vacuum</li>
+                        <li>Door Shuts & Plastics</li>
+                        <li>Dashboard Clean</li>
+                        <li>Air Freshener</li>
+                        <li>Sealer Hand Wax</li>
+                    </ul>
+                    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Book Now</button>
+                </div>
+                <div class="border rounded-lg p-4 text-center hover:bg-blue-100 cursor-pointer" onclick="selectPackage(this)">
+                    <h3 class="text-xl font-semibold mb-2">Platinum Works</h3>
+                    <p class="text-2xl font-bold text-blue-500 mb-2">$65<sup>95</sup></p>
+                    <p class="mb-2">100min</p>
+                    <ul class="text-left mb-4">
+                        <li>Exterior Hand Wash</li>
+                        <li>Towel Hand Dry</li>
+                        <li>Wheel Shine</li>
+                        <li>Tire Dressing</li>
+                        <li>Windows In & Out</li>
+                        <li>Interior Vacuum</li>
+                        <li>Door Shuts & Plastics</li>
+                        <li>Dashboard Clean</li>
+                        <li>Air Freshener</li>
+                        <li>Sealer Hand Wax</li>
+                        <li>Triple Coat Hand Wax</li>
+                        <li>Exterior Vinyl Protectant</li>
+                        <li>RainX Complete</li>
+                    </ul>
+                    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Book Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add-on options -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center mr-4">3/5
+                </div>
+                <h2 class="text-xl font-semibold">Add-on options</h2>
+            </div>
+            <p class="mb-4">Add services to your package.</p>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border rounded-lg shadow-md">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b">Service</th>
+                            <th class="py-2 px-4 border-b">Duration</th>
+                            <th class="py-2 px-4 border-b">Price</th>
+                            <th class="py-2 px-4 border-b text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b hover:bg-blue-100 cursor-pointer">
+                            <td class="py-4">
+                                <span>Exterior Hand Wash</span>
+                                <a href="#" class="text-blue-500 ml-2">More...</a>
+                            </td>
+                            <td class="py-4">10min</td>
+                            <td class="py-4">$7.95</td>
+                            <td class="py-4 text-right">
+                                <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Add</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b hover:bg-blue-100 cursor-pointer">
+                            <td class="py-4">
+                                <span>Towel Hand Dry</span>
+                                <a href="#" class="text-blue-500 ml-2">More...</a>
+                            </td>
+                            <td class="py-4">5min</td>
+                            <td class="py-4">$3.95</td>
+                            <td class="py-4 text-right">
+                                <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Add</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b hover:bg-blue-100 cursor-pointer">
+                            <td class="py-4">
+                                <span>Wheel Shine</span>
+                                <a href="#" class="text-blue-500 ml-2">More...</a>
+                            </td>
+                            <td class="py-4">10min</td>
+                            <td class="py-4">$7.95</td>
+                            <td class="py-4 text-right">
+                                <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Add</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b hover:bg-blue-100 cursor-pointer">
+                            <td class="py-4">
+                                <span>Tire Dressing</span>
+                                <a href="#" class="text-blue-500 ml-2">More...</a>
+                            </td>
+                            <td class="py-4">10min</td>
+                            <td class="py-4">$8.95</td>
+                            <td class="py-4 text-right">
+                                <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Add</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b hover:bg-blue-100 cursor-pointer">
+                            <td class="py-4">
+                                <span>Windows In & Out</span>
+                                <a href="#" class="text-blue-500 ml-2">More...</a>
+                            </td>
+                            <td class="py-4">15min</td>
+                            <td class="py-4">$11.95</td>
+                            <td class="py-4 text-right">
+                                <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Add</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Confirmation -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center mr-4">4/5
+                </div>
+                <h2 class="text-xl font-semibold">Confirmation</h2>
+            </div>
+            <p class="mb-4">Confirm your selection.</p>
+            <div>
+                <p class="mb-2"><strong>Vehicle Type:</strong> <span id="selectedVehicle"></span></p>
+                <p class="mb-2"><strong>Wash Package:</strong> <span id="selectedPackage"></span></p>
+                <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 mt-4" onclick="confirmBooking()">Confirm and Book</button>
+            </div>
+        </div>
+
+        <!-- Completion -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center mr-4">5/5
+                </div>
+                <h2 class="text-xl font-semibold">Booking Complete</h2>
+            </div>
+            <p class="mb-4">Thank you for your booking!</p>
+        </div>
+    </div>
+
+    <script>
+        let selectedVehicle = '';
+        let selectedPackage = '';
+
+        function selectVehicle(element) {
+            document.querySelectorAll('.grid div').forEach(div => div.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedVehicle = element.innerText;
+            document.getElementById('selectedVehicle').innerText = selectedVehicle;
+        }
+
+        function selectPackage(element) {
+            document.querySelectorAll('.grid div').forEach(div => div.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedPackage = element.querySelector('h3').innerText;
+            document.getElementById('selectedPackage').innerText = selectedPackage;
+        }
+
+        function confirmBooking() {
+            alert(`Booking Confirmed! \n\nVehicle Type: ${selectedVehicle} \nWash Package: ${selectedPackage}`);
+        }
+    </script>
+</body>
+
+</html>
