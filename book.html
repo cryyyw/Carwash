@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Wash Booking</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .step .number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        .grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .grid .option {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .selected {
+            border: 2px solid #007bff;
+        }
+
+        .card .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .card .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Car Wash Booking</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#vehicle-type">Vehicle Type</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#wash-packages">Wash Packages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#add-ons">Add-on Options</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#confirmation">Confirmation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#booking-complete">Booking Complete</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Vehicle Type -->
+        <div class="card mb-4" id="vehicle-type">
+            <div class="step">
+                <div class="number">1/5</div>
+                <h2>Select Vehicle Type</h2>
+            </div>
+            <div class="grid">
+                <div class="option" onclick="selectVehicle(this)">Regular Size Car</div>
+                <div class="option" onclick="selectVehicle(this)">Medium Size Car</div>
+                <div class="option" onclick="selectVehicle(this)">Compact SUV</div>
+                <div class="option" onclick="selectVehicle(this)">Minivan</div>
+                <div class="option" onclick="selectVehicle(this)">Pickup Truck</div>
+                <div class="option" onclick="selectVehicle(this)">motorcycle</div>
+            </div>
+        </div>
+
+        <!-- Wash Packages -->
+        <div class="card mb-4" id="wash-packages">
+            <div class="step">
+                <div class="number">2/5</div>
+                <h2>Select Wash Package</h2>
+            </div>
+            <div class="grid">
+                <div class="option" onclick="selectPackage(this)">
+                    <h3>Basic Wash</h3>
+                    <p>₱</p>
+                </div>
+                <div class="option" onclick="selectPackage(this)">
+                    <h3>Premium Wash</h3>
+                    <p>₱</p>
+                </div>
+                <div class="option" onclick="selectPackage(this)">
+                    <h3>Wash + Detailing</h3>
+                    <p>₱</p>
+                </div>
+                <div class="option" onclick="selectPackage(this)">
+                    <h3>Underwash</h3>
+                    <p>₱</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add-on Options -->
+        <div class="card mb-4" id="add-ons">
+            <div class="step">
+                <div class="number">3/5</div>
+                <h2>Add-on options</h2>
+            </div>
+            <p>Select additional options for your wash package.</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Time</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Exterior Hand Wash <a href="#" class="text-primary ml-2"></a></td>
+                        <td>15min</td>
+                        <td>₱</td>
+                        <td><button class="btn btn-primary">Add</button></td>
+                    </tr>
+                    <tr>
+                        <td>Towel Hand Dry <a href="#" class="text-primary ml-2"></a></td>
+                        <td>5min</td>
+                        <td>₱</td>
+                        <td><button class="btn btn-primary">Add</button></td>
+                    </tr>
+                    <tr>
+                        <td>Wheel Shine <a href="#" class="text-primary ml-2"></a></td>
+                        <td>10min</td>
+                        <td>₱</td>
+                        <td><button class="btn btn-primary">Add</button></td>
+                    </tr>
+                    <tr>
+                        <td>Tire Dressing <a href="#" class="text-primary ml-2"></a></td>
+                        <td>10min</td>
+                        <td>₱</td>
+                        <td><button class="btn btn-primary">Add</button></td>
+                    </tr>
+                    <tr>
+                        <td>Windows In & Out <a href="#" class="text-primary ml-2"></a></td>
+                        <td>15min</td>
+                        <td>₱</td>
+                        <td><button class="btn btn-primary">Add</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Confirmation -->
+        <div class="card mb-4" id="confirmation">
+            <div class="step">
+                <div class="number">4/5</div>
+                <h2>Confirmation</h2>
+            </div>
+            <p>Confirm your selection.</p>
+            <div>
+                <p><strong>Vehicle Type:</strong> <span id="selectedVehicle"></span></p>
+                <p><strong>Wash Package:</strong> <span id="selectedPackage"></span></p>
+                <button class="btn btn-primary" onclick="confirmBooking()">Confirm and Book</button>
+            </div>
+        </div>
+
+        <!-- Booking Complete -->
+        <div class="card mb-4" id="booking-complete">
+            <div class="step">
+                <div class="number">5/5</div>
+                <h2>Booking Complete</h2>
+            </div>
+            <p>Thank you for your booking!</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        let selectedVehicle = '';
+        let selectedPackage = '';
+
+        function selectVehicle(element) {
+            document.querySelectorAll('.grid .option').forEach(div => div.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedVehicle = element.textContent.trim();
+            document.getElementById('selectedVehicle').textContent = selectedVehicle;
+        }
+
+        function selectPackage(element) {
+            document.querySelectorAll('.grid .option').forEach(div => div.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedPackage = element.querySelector('h3').textContent.trim();
+            document.getElementById('selectedPackage').textContent = selectedPackage;
+        }
+
+        function confirmBooking() {
+            alert('Booking confirmed for ' + selectedVehicle + ' with ' + selectedPackage + ' package.');
+        }
+    </script>
+</body>
+
+</html>
