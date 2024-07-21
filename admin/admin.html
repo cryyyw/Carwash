@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carwash Booking Admin Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -49,6 +49,7 @@
                 </div>
             </div>
             <div class="col-md-9 main-content">
+                <!-- Dashboard Overview -->
                 <div class="row my-4">
                     <div class="col-md-3">
                         <div class="card text-white bg-primary mb-3">
@@ -83,11 +84,14 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Booking Management -->
                 <div class="row my-4">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
                                 Recent Bookings
+                                <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addBookingModal">Add Booking</button>
                             </div>
                             <div class="card-body">
                                 <table class="table table-striped">
@@ -97,6 +101,7 @@
                                             <th>Service</th>
                                             <th>Date</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="recent-bookings">
@@ -107,14 +112,42 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Service Management -->
                 <div class="row my-4">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                Notifications
+                                Services
+                                <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#addServiceModal">Add Service</button>
                             </div>
-                            <div class="card-body" id="notifications">
-                                <!-- Notifications will be added here by JavaScript -->
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Service Name</th>
+                                            <th>Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="service-list">
+                                        <!-- Service rows will be added here by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports -->
+                <div class="row my-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                Reports
+                            </div>
+                            <div class="card-body" id="reports">
+                                <!-- Reports content will be added here by JavaScript -->
                             </div>
                         </div>
                     </div>
@@ -122,6 +155,74 @@
             </div>
         </div>
     </div>
+
+    <!-- Add Booking Modal -->
+    <div class="modal fade" id="addBookingModal" tabindex="-1" role="dialog" aria-labelledby="addBookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addBookingModalLabel">Add Booking</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-booking-form">
+                        <div class="form-group">
+                            <label for="customer-name">Customer Name</label>
+                            <input type="text" class="form-control" id="customer-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service</label>
+                            <select class="form-control" id="service" required>
+                                <!-- Service options will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" class="form-control" id="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select class="form-control" id="status" required>
+                                <option value="Pending">Pending</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Booking</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Service Modal -->
+    <div class="modal fade" id="addServiceModal" tabindex="-1" role="dialog" aria-labelledby="addServiceModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addServiceModalLabel">Add Service</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-service-form">
+                        <div class="form-group">
+                            <label for="service-name">Service Name</label>
+                            <input type="text" class="form-control" id="service-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" id="price" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Service</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
