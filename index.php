@@ -9,7 +9,50 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carwash Booking System</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.75rem;
+        }
+
+        #home {
+            background: #007bff;
+            color: white;
+        }
+
+        #services .card {
+            transition: transform 0.2s;
+        }
+
+        #services .card:hover {
+            transform: scale(1.05);
+        }
+
+        .facility-img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .facility-title {
+            font-size: 1.5rem;
+            color: #007bff;
+        }
+
+        .facility-price {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
@@ -20,7 +63,7 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#index.php">Home</a>
+                    <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.html">About us</a>
@@ -59,10 +102,11 @@ session_start();
             <div class="row">
                 <div class="col-md-3">
                     <div class="card mb-4">
+                        <img src="carwash.png" class="card-img-top facility-img" alt="Facility 1">
                         <div class="card-body">
-                            <h3 class="card-title">Facility 1</h3>
+                            <h3 class="facility-title">Facility 1</h3>
                             <p class="card-text">Basic exterior wash and dry</p>
-                            <p class="card-text">Starting Price: </p>
+                            <p class="card-text facility-price">Starting Price:</p>
                             <a href="booking1.php" class="btn btn-primary">Book Now</a>
                         </div>
                     </div>
@@ -70,10 +114,11 @@ session_start();
 
                 <div class="col-md-3">
                     <div class="card mb-4">
+                        <img src="carwash.png" class="card-img-top facility-img" alt="Facility 2">
                         <div class="card-body">
-                            <h3 class="card-title">Facility 2</h3>
-                            <p class="card-text">Basic exterior wash and dry</p>
-                            <p class="card-text">Starting Price: </p>
+                            <h3 class="facility-title">Facility 2</h3>
+                            <p class="card-text">Interior and exterior wash</p>
+                            <p class="card-text facility-price">Starting Price:</p>
                             <a href="booking2.php" class="btn btn-primary">Book Now</a>
                         </div>
                     </div>
@@ -81,10 +126,11 @@ session_start();
 
                 <div class="col-md-3">
                     <div class="card mb-4">
+                        <img src="carwash.png" class="card-img-top facility-img" alt="Facility 3">
                         <div class="card-body">
-                            <h3 class="card-title">Facility 3</h3>
-                            <p class="card-text">Basic exterior wash and dry</p>
-                            <p class="card-text">Starting Price: </p>
+                            <h3 class="facility-title">Facility 3</h3>
+                            <p class="card-text">Full wash, wax, and polish</p>
+                            <p class="card-text facility-price">Starting Price:</p>
                             <a href="booking3.php" class="btn btn-primary">Book Now</a>
                         </div>
                     </div>
@@ -92,10 +138,11 @@ session_start();
 
                 <div class="col-md-3">
                     <div class="card mb-4">
+                        <img src="carwash.png" class="card-img-top facility-img" alt="Facility 4">
                         <div class="card-body">
-                            <h3 class="card-title">Facility 4</h3>
-                            <p class="card-text">Basic exterior wash and dry</p>
-                            <p class="card-text">Starting Price: </p>
+                            <h3 class="facility-title">Facility 4</h3>
+                            <p class="card-text">Detailing and premium wash</p>
+                            <p class="card-text facility-price">Starting Price: </p>
                             <a href="booking4.php" class="btn btn-primary">Book Now</a>
                         </div>
                     </div>
