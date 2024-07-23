@@ -48,7 +48,6 @@ session_start();
         <div class="container">
             <h2 class="display-5">Welcome to CleanConnect: A Carwash Booking System in Nasugbu, Batangas</h2>
             <p class="lead">Book your car wash online hassle-free!</p>
-            <a href="booking.php" class="btn btn-primary btn-lg">Book Now</a>
         </div>
     </section>
 
@@ -64,7 +63,7 @@ session_start();
                             <h3 class="card-title">Facility 1</h3>
                             <p class="card-text">Basic exterior wash and dry</p>
                             <p class="card-text">Starting Price: </p>
-                            <a href="booking.php" class="btn btn-primary">Book Now</a>
+                            <a href="booking1.php" class="btn btn-primary">Book Now</a>
                         </div>
                     </div>
                 </div>
@@ -75,7 +74,7 @@ session_start();
                             <h3 class="card-title">Facility 2</h3>
                             <p class="card-text">Basic exterior wash and dry</p>
                             <p class="card-text">Starting Price: </p>
-                            <a href="booking.php" class="btn btn-primary">Book Now</a>
+                            <a href="booking2.php" class="btn btn-primary">Book Now</a>
                         </div>
                     </div>
                 </div>
@@ -86,7 +85,7 @@ session_start();
                             <h3 class="card-title">Facility 3</h3>
                             <p class="card-text">Basic exterior wash and dry</p>
                             <p class="card-text">Starting Price: </p>
-                            <a href="booking.php" class="btn btn-primary">Book Now</a>
+                            <a href="booking3.php" class="btn btn-primary">Book Now</a>
                         </div>
                     </div>
                 </div>
@@ -97,7 +96,7 @@ session_start();
                             <h3 class="card-title">Facility 4</h3>
                             <p class="card-text">Basic exterior wash and dry</p>
                             <p class="card-text">Starting Price: </p>
-                            <a href="booking.php" class="btn btn-primary">Book Now</a>
+                            <a href="booking4.php" class="btn btn-primary">Book Now</a>
                         </div>
                     </div>
                 </div>

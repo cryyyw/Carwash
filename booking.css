@@ -63,3 +63,28 @@ body {
     background-color: #007bff;
     color: white;
 }
+/* Ensure consistent table layout */
+.table td, .table th {
+    vertical-align: middle;
+}
+
+/* Center-align the button in the table cell */
+.table .btn {
+    display: block;
+    margin: 0 auto;
+    width: 100px; /* Adjust width as needed */
+}
+
+/* Add some padding to the button */
+.table .btn-primary {
+    padding: 5px 10px; /* Adjust padding as needed */
+}
+
+/* Ensure button text is centered */
+.table .btn-primary {
+    text-align: center;
+}
+#booking_time {
+    max-width: 150px; /* Adjust the width as needed */
+    width: 100%; /* Ensure it takes full width of its container */
+}
