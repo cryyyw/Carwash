@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2024 at 08:19 AM
+-- Generation Time: Jul 30, 2024 at 05:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,11 +42,11 @@ CREATE TABLE `bookings` (
 --
 
 INSERT INTO `bookings` (`id`, `user_id`, `vehicle_type`, `wash_package`, `add_ons`, `booking_time`, `booking_date`) VALUES
-(1, 1, 'Regular Size Car', 'Premium Wash', 'Exterior Hand Wash', NULL, NULL),
-(2, 1, '', '', '', NULL, NULL),
-(3, 1, 'Regular Size Car', 'Basic Wash', 'Exterior Hand Wash', NULL, NULL),
-(4, 1, 'Regular Size Car', 'Premium Wash', 'Tire Dressing', NULL, NULL),
-(5, 1, 'Medium Size Car', 'Premium Wash', 'Towel Hand Dry,Exterior Hand Wash,Wheel Shine', NULL, NULL);
+(9, 4, 'Regular Size Car', 'Premium Wash', 'Exterior Hand Wash,Towel Hand Dry', '15:30:00', '2024-07-30'),
+(10, 4, 'Regular Size Car', 'Premium Wash', 'Exterior Hand Wash, Towel Hand Dry', '13:30:00', '2024-07-28'),
+(14, 4, 'Regular Size Car', 'Premium Wash', 'Exterior Hand Wash', '09:23:00', '2024-07-30'),
+(15, 4, 'Regular Size Car', 'Premium Wash', '', '20:30:00', '2024-07-29'),
+(16, 4, 'Regular Size Car', 'Premium Wash', '', '01:30:00', '2024-07-28');
 
 -- --------------------------------------------------------
 
@@ -58,15 +58,17 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `created_at`) VALUES
-(1, 'example@gmail.com', '$2y$10$wZUUH.MgrkO9gQBBHho1ZuiIsBG8dAIKy3VRSwRHKhXzTKJjW53eW', '2024-07-22 17:26:55');
+INSERT INTO `users` (`id`, `email`, `password`, `created_at`, `name`, `phone`) VALUES
+(4, 'example@gmail.com', '$2y$10$kAxGSx7ojRL2lOGl6SvGTOhS90L0hSLvO/3jvx5R7aJ8lrCFYLPca', '2024-07-27 22:08:09', 'example', '091234567');
 
 --
 -- Indexes for dumped tables
@@ -94,13 +96,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
