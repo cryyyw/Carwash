@@ -221,56 +221,82 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <script>
-        let selectedVehicle = '';
-        let selectedPackage = '';
-        let selectedAddOns = [];
+  <script>
+let selectedVehicle = '';
+let selectedPackage = '';
+let selectedAddOns = [];
 
-        function selectVehicle(element) {
-            document.querySelectorAll('#vehicle-type .option').forEach(div => div.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedVehicle = element.textContent.trim();
-            document.getElementById('selectedVehicle').textContent = selectedVehicle;
-            document.getElementById('vehicle_type_input').value = selectedVehicle;
-        }
+function selectVehicle(element) {
+    document.querySelectorAll('#vehicle-type .option').forEach(div => div.classList.remove('selected'));
+    element.classList.add('selected');
+    selectedVehicle = element.textContent.trim();
+    document.getElementById('selectedVehicle').textContent = selectedVehicle;
+    document.getElementById('vehicle_type_input').value = selectedVehicle;
 
-        function selectPackage(element) {
-            document.querySelectorAll('#wash-packages .option').forEach(div => div.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedPackage = element.querySelector('h3').textContent.trim();
-            document.getElementById('selectedPackage').textContent = selectedPackage;
-            document.getElementById('wash_package_input').value = selectedPackage;
-        }
+    // Enable the confirm button if all selections are made
+    updateConfirmButton();
+}
 
-        function selectAddOn(element) {
-            const service = element.closest('tr').querySelector('td:first-child').textContent.trim();
-            const index = selectedAddOns.indexOf(service);
+function selectPackage(element) {
+    document.querySelectorAll('#wash-packages .option').forEach(div => div.classList.remove('selected'));
+    element.classList.add('selected');
+    selectedPackage = element.querySelector('h3').textContent.trim();
+    document.getElementById('selectedPackage').textContent = selectedPackage;
+    document.getElementById('wash_package_input').value = selectedPackage;
 
-            if (index === -1) {
-                selectedAddOns.push(service);
-                element.classList.add('selected');
-                element.textContent = 'Remove';
-            } else {
-                selectedAddOns.splice(index, 1);
-                element.classList.remove('selected');
-                element.textContent = 'Add';
-            }
+    // Enable the confirm button if all selections are made
+    updateConfirmButton();
+}
 
-            document.getElementById('selectedAddOns').textContent = selectedAddOns.join(', ');
-            document.getElementById('add_ons_input').value = selectedAddOns.join(',');
-        }
+function selectAddOn(element) {
+    const service = element.closest('tr').querySelector('td:first-child').textContent.trim();
+    const index = selectedAddOns.indexOf(service);
 
-        function showConfirmationModal() {
-            $('#confirmationModal').modal('show');
-        }
+    if (index === -1) {
+        selectedAddOns.push(service);
+        element.classList.add('selected');
+        element.textContent = 'Remove';
+    } else {
+        selectedAddOns.splice(index, 1);
+        element.classList.remove('selected');
+        element.textContent = 'Add';
+    }
 
-        function confirmBooking() {
-            document.getElementById('bookingForm').submit();
-        }
+    document.getElementById('selectedAddOns').textContent = selectedAddOns.join(', ');
+    document.getElementById('add_ons_input').value = selectedAddOns.join(',');
 
-        function locateCarwash() {
-            window.location.href = 'locate_carwash.php';
-        }
-    </script>
+    // Enable the confirm button if all selections are made
+    updateConfirmButton();
+}
+
+function updateConfirmButton() {
+    const isVehicleSelected = selectedVehicle !== '';
+    const isPackageSelected = selectedPackage !== '';
+
+    const confirmButton = document.querySelector('#confirmation .btn-primary');
+    if (isVehicleSelected && isPackageSelected) {
+        confirmButton.disabled = false;
+    } else {
+        confirmButton.disabled = true;
+    }
+}
+
+function showConfirmationModal() {
+    if (document.querySelector('#confirmation .btn-primary').disabled) {
+        alert('Please complete all selections before proceeding.');
+        return;
+    }
+    $('#confirmationModal').modal('show');
+}
+
+function confirmBooking() {
+    document.getElementById('bookingForm').submit();
+}
+
+function locateCarwash() {
+    window.location.href = 'locate_carwash.php';
+}
+</script>
+
 </body>
 </html>
