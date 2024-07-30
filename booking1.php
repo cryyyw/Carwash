@@ -220,8 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
-
-    <script>
+<script>
 let selectedVehicle = '';
 let selectedPackage = '';
 let selectedAddOns = [];
@@ -272,10 +271,9 @@ function selectAddOn(element) {
 function updateConfirmButton() {
     const isVehicleSelected = selectedVehicle !== '';
     const isPackageSelected = selectedPackage !== '';
-    const isAddOnsSelected = selectedAddOns.length > 0;
 
     const confirmButton = document.querySelector('#confirmation .btn-primary');
-    if (isVehicleSelected && isPackageSelected && isAddOnsSelected) {
+    if (isVehicleSelected && isPackageSelected) {
         confirmButton.disabled = false;
     } else {
         confirmButton.disabled = true;
@@ -297,7 +295,7 @@ function confirmBooking() {
 function locateCarwash() {
     window.location.href = 'locate_carwash.php';
 }
+</script>
 
-    </script>
 </body>
 </html>
