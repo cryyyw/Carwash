@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("isss", $user_id, $vehicle_type, $wash_package, $add_ons);
 
     if ($stmt->execute()) {
-        header("Location: booking4.php");
+        header("Location: booking1.php");
         exit();
     } else {
         echo "Error: " . $stmt->error;
@@ -164,23 +164,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </table>
         </div>
 
-        <!-- Confirmation -->
-        <div class="card mb-4" id="confirmation">
-            <div class="step">
-                <div class="number">4/5</div>
-                <h2>Confirmation</h2>
-            </div>
-            <p>Confirm your selection.</p>
-            <form id="bookingForm" method="POST" action="">
-                <input type="hidden" name="vehicle_type" id="vehicle_type_input">
-                <input type="hidden" name="wash_package" id="wash_package_input">
-                <input type="hidden" name="add_ons[]" id="add_ons_input">
-                <p><strong>Vehicle Type:</strong> <span id="selectedVehicle"></span></p>
-                <p><strong>Wash Package:</strong> <span id="selectedPackage"></span></p>
-                <p><strong>Wash Add-ons:</strong> <span id="selectedAddOns"></span></p>
-                <button type="button" class="btn btn-primary" onclick="showConfirmationModal()">Confirm and Book</button>
-            </form>
-        </div>
+<!-- Confirmation -->
+<div class="card mb-4" id="confirmation">
+    <div class="step">
+        <div class="number">4/5</div>
+        <h2>Confirmation</h2>
+    </div>
+    <p>Confirm your selection.</p>
+    <form id="bookingForm" method="POST" action="">
+        <input type="hidden" name="vehicle_type" id="vehicle_type_input">
+        <input type="hidden" name="wash_package" id="wash_package_input">
+        <input type="hidden" name="add_ons[]" id="add_ons_input">
+        <p><strong>Vehicle Type:</strong> <span id="selectedVehicle"></span></p>
+        <p><strong>Wash Package:</strong> <span id="selectedPackage"></span></p>
+        <p><strong>Wash Add-ons:</strong> <span id="selectedAddOns"></span></p>
+        <button type="button" class="btn btn-primary" onclick="showConfirmationModal()" disabled>Confirm and Book</button>
+    </form>
+</div>
 
         <!-- Booking Complete -->
         <div class="card mb-4" id="booking-complete">
@@ -211,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Thank you for your booking. Your car wash appointment has been confirmed.</p>
+                    <p>Thank you for choosing carwash 1. Would you like to confirm the booking ?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -234,7 +234,7 @@ function selectVehicle(element) {
     document.getElementById('vehicle_type_input').value = selectedVehicle;
 
     // Enable the confirm button if all selections are made
-    updateConfirmButton();
+    ConfirmButton();
 }
 
 function selectPackage(element) {
@@ -245,7 +245,7 @@ function selectPackage(element) {
     document.getElementById('wash_package_input').value = selectedPackage;
 
     // Enable the confirm button if all selections are made
-    updateConfirmButton();
+    ConfirmButton();
 }
 
 function selectAddOn(element) {
@@ -266,10 +266,10 @@ function selectAddOn(element) {
     document.getElementById('add_ons_input').value = selectedAddOns.join(',');
 
     // Enable the confirm button if all selections are made
-    updateConfirmButton();
+    ConfirmButton();
 }
 
-function updateConfirmButton() {
+function ConfirmButton() {
     const isVehicleSelected = selectedVehicle !== '';
     const isPackageSelected = selectedPackage !== '';
 
@@ -296,7 +296,7 @@ function confirmBooking() {
 function locateCarwash() {
     window.location.href = 'locate_carwash.php';
 }
-</script>
 
+    </script>
 </body>
 </html>

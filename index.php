@@ -56,14 +56,14 @@ session_start();
 </head>
 <body>
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="index.html">CleanConnect</a>
+        <a class="navbar-brand" href="index.php">CleanConnect</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
+                    <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.html">About us</a>
@@ -154,5 +154,10 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <footer class="bg-dark text-white py-1">
+        <div class="container text-center">
+            <p>&copy; 2024 Carwash Booking System. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

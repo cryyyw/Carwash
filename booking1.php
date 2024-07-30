@@ -11,19 +11,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $vehicle_type = $_POST['vehicle_type'];
     $wash_package = $_POST['wash_package'];
     $add_ons = implode(", ", $_POST['add_ons']);
+    $date = $_POST['date'];
+    $time = $_POST['time'];
     $user_id = $_SESSION['user_id'];
 
-    $sql = "INSERT INTO bookings (user_id, vehicle_type, wash_package, add_ons) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isss", $user_id, $vehicle_type, $wash_package, $add_ons);
+    // Check if the selected date and time is already booked
+    $check_sql = "SELECT COUNT(*) AS count FROM bookings WHERE booking_date = ? AND booking_time = ?";
+    $check_stmt = $conn->prepare($check_sql);
+    $check_stmt->bind_param("ss", $date, $time);
+    $check_stmt->execute();
+    $check_stmt->bind_result($count);
+    $check_stmt->fetch();
+    $check_stmt->close();
 
-    if ($stmt->execute()) {
-        header("Location: booking1.php");
-        exit();
+    if ($count > 0) {
+        echo "<script>alert('The selected time slot is already booked. Please choose a different time.'); window.history.back();</script>";
     } else {
-        echo "Error: " . $stmt->error;
+        $sql = "INSERT INTO bookings (user_id, vehicle_type, wash_package, add_ons, booking_date, booking_time) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("isssss", $user_id, $vehicle_type, $wash_package, $add_ons, $date, $time);
+
+        if ($stmt->execute()) {
+            header("Location: booking1.php");
+            exit();
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }
 ?>
 
@@ -36,6 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="booking.css">
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
@@ -164,23 +181,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </table>
         </div>
 
-<!-- Confirmation -->
-<div class="card mb-4" id="confirmation">
-    <div class="step">
-        <div class="number">4/5</div>
-        <h2>Confirmation</h2>
-    </div>
-    <p>Confirm your selection.</p>
-    <form id="bookingForm" method="POST" action="">
-        <input type="hidden" name="vehicle_type" id="vehicle_type_input">
-        <input type="hidden" name="wash_package" id="wash_package_input">
-        <input type="hidden" name="add_ons[]" id="add_ons_input">
-        <p><strong>Vehicle Type:</strong> <span id="selectedVehicle"></span></p>
-        <p><strong>Wash Package:</strong> <span id="selectedPackage"></span></p>
-        <p><strong>Wash Add-ons:</strong> <span id="selectedAddOns"></span></p>
-        <button type="button" class="btn btn-primary" onclick="showConfirmationModal()" disabled>Confirm and Book</button>
-    </form>
-</div>
+        <!-- Confirmation -->
+        <div class="card mb-4" id="confirmation">
+            <div class="step">
+                <div class="number">4/5</div>
+                <h2>Confirmation</h2>
+            </div>
+            <p>Confirm your selection.</p>
+            <form id="bookingForm" method="POST" action="">
+                <input type="hidden" name="vehicle_type" id="vehicle_type_input">
+                <input type="hidden" name="wash_package" id="wash_package_input">
+                <input type="hidden" name="add_ons[]" id="add_ons_input">
+                <input type="hidden" name="date" id="date_input">
+                <input type="hidden" name="time" id="time_input">
+                <p><strong>Vehicle Type:</strong> <span id="selectedVehicle"></span></p>
+                <p><strong>Wash Package:</strong> <span id="selectedPackage"></span></p>
+                <p><strong>Wash Add-ons:</strong> <span id="selectedAddOns"></span></p>
+                <div class="form-group">
+                    <label for="date_picker">Select Date:</label>
+                    <input type="text" class="form-control" id="date_picker" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time_picker">Select Time:</label>
+                    <input type="time" class="form-control" id="time_picker" name="time" step="1800" required>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="showConfirmationModal()" disabled>Confirm Booking</button>
+            </form>
+        </div>
 
         <!-- Booking Complete -->
         <div class="card mb-4" id="booking-complete">
@@ -188,17 +215,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="number">5/5</div>
                 <h2>Booking Complete</h2>
             </div>
-            <p>Thank you for choosing CleanConnect carwash.</p>
-            <div>
-                <button class="btn btn-primary" onclick="locateCarwash()">Locate Carwash</button>
-            </div>
+            <p>Your booking has been completed. Thank you!</p>
+            <p id="bookingDetails"></p>
         </div>
+
+        <button class="btn btn-primary" onclick="locateCarwash()">Locate Nearby Carwash</button>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- jQuery UI JS -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- Modal HTML -->
     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -211,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Thank you for choosing carwash 1. Would you like to confirm the booking ?</p>
+                    <p>Thank you for choosing carwash 1. Would you like to confirm the booking?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -220,82 +249,109 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
-<script>
-let selectedVehicle = '';
-let selectedPackage = '';
-let selectedAddOns = [];
 
-function selectVehicle(element) {
-    document.querySelectorAll('#vehicle-type .option').forEach(div => div.classList.remove('selected'));
-    element.classList.add('selected');
-    selectedVehicle = element.textContent.trim();
-    document.getElementById('selectedVehicle').textContent = selectedVehicle;
-    document.getElementById('vehicle_type_input').value = selectedVehicle;
+    <script>
+        let selectedVehicle = '';
+        let selectedPackage = '';
+        let selectedAddOns = [];
 
-    // Enable the confirm button if all selections are made
-    updateConfirmButton();
-}
+        function selectVehicle(element) {
+            document.querySelectorAll('#vehicle-type .option').forEach(div => div.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedVehicle = element.textContent.trim();
+            document.getElementById('selectedVehicle').textContent = selectedVehicle;
+            document.getElementById('vehicle_type_input').value = selectedVehicle;
 
-function selectPackage(element) {
-    document.querySelectorAll('#wash-packages .option').forEach(div => div.classList.remove('selected'));
-    element.classList.add('selected');
-    selectedPackage = element.querySelector('h3').textContent.trim();
-    document.getElementById('selectedPackage').textContent = selectedPackage;
-    document.getElementById('wash_package_input').value = selectedPackage;
+            ConfirmButton();
+        }
 
-    // Enable the confirm button if all selections are made
-    updateConfirmButton();
-}
+        function selectPackage(element) {
+            document.querySelectorAll('#wash-packages .option').forEach(div => div.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedPackage = element.querySelector('h3').textContent.trim();
+            document.getElementById('selectedPackage').textContent = selectedPackage;
+            document.getElementById('wash_package_input').value = selectedPackage;
 
-function selectAddOn(element) {
-    const service = element.closest('tr').querySelector('td:first-child').textContent.trim();
-    const index = selectedAddOns.indexOf(service);
+            ConfirmButton();
+        }
 
-    if (index === -1) {
-        selectedAddOns.push(service);
-        element.classList.add('selected');
-        element.textContent = 'Remove';
-    } else {
-        selectedAddOns.splice(index, 1);
-        element.classList.remove('selected');
-        element.textContent = 'Add';
-    }
+        function selectAddOn(element) {
+            const service = element.closest('tr').querySelector('td:first-child').textContent.trim();
+            const index = selectedAddOns.indexOf(service);
 
-    document.getElementById('selectedAddOns').textContent = selectedAddOns.join(', ');
-    document.getElementById('add_ons_input').value = selectedAddOns.join(',');
+            if (index === -1) {
+                selectedAddOns.push(service);
+                element.classList.add('selected');
+                element.textContent = 'Remove';
+            } else {
+                selectedAddOns.splice(index, 1);
+                element.classList.remove('selected');
+                element.textContent = 'Add';
+            }
 
-    // Enable the confirm button if all selections are made
-    updateConfirmButton();
-}
+            document.getElementById('selectedAddOns').textContent = selectedAddOns.join(', ');
+            document.getElementById('add_ons_input').value = selectedAddOns.join(',');
 
-function updateConfirmButton() {
-    const isVehicleSelected = selectedVehicle !== '';
-    const isPackageSelected = selectedPackage !== '';
+            ConfirmButton();
+        }
 
-    const confirmButton = document.querySelector('#confirmation .btn-primary');
-    if (isVehicleSelected && isPackageSelected) {
-        confirmButton.disabled = false;
-    } else {
-        confirmButton.disabled = true;
-    }
-}
+        function ConfirmButton() {
+            const isVehicleSelected = selectedVehicle !== '';
+            const isPackageSelected = selectedPackage !== '';
+            const isDateSelected = document.getElementById('date_picker').value !== '';
+            const isTimeSelected = document.getElementById('time_picker').value !== '';
 
-function showConfirmationModal() {
-    if (document.querySelector('#confirmation .btn-primary').disabled) {
-        alert('Please complete all selections before proceeding.');
-        return;
-    }
-    $('#confirmationModal').modal('show');
-}
+            const confirmButton = document.querySelector('#confirmation .btn-primary');
+            if (isVehicleSelected && isPackageSelected && isDateSelected && isTimeSelected) {
+                confirmButton.disabled = false;
+            } else {
+                confirmButton.disabled = true;
+            }
+        }
 
-function confirmBooking() {
-    document.getElementById('bookingForm').submit();
-}
+        function showConfirmationModal() {
+            if (document.querySelector('#confirmation .btn-primary').disabled) {
+                alert('Please complete all selections before proceeding.');
+                return;
+            }
+            $('#confirmationModal').modal('show');
+        }
 
-function locateCarwash() {
-    window.location.href = 'locate_carwash.php';
-}
-</script>
+        function confirmBooking() {
+            document.getElementById('bookingForm').submit();
+        }
 
+        function locateCarwash() {
+            window.location.href = 'locate_carwash.php';
+        }
+
+        $(document).ready(function() {
+            $("#date_picker").datepicker({
+                minDate: 0,
+                dateFormat: 'yy-mm-dd',
+                onSelect: function() {
+                    ConfirmButton();
+                }
+            });
+
+            $("#time_picker").on("input", function() {
+                ConfirmButton();
+                adjustTimePicker(this);
+            });
+        });
+
+        function adjustTimePicker(input) {
+            const [hour, minute] = input.value.split(':').map(Number);
+            if (minute !== 0 && minute !== 30) {
+                if (minute < 15) {
+                    input.value = `${hour.toString().padStart(2, '0')}:00`;
+                } else if (minute < 45) {
+                    input.value = `${hour.toString().padStart(2, '0')}:30`;
+                } else {
+                    input.value = `${(hour + 1).toString().padStart(2, '0')}:00`;
+                }
+            }
+        }
+    </script>
 </body>
 </html>

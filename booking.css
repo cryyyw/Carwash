@@ -88,3 +88,19 @@ body {
     max-width: 150px; /* Adjust the width as needed */
     width: 100%; /* Ensure it takes full width of its container */
 }
+.time-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.time-picker select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: white;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+}
